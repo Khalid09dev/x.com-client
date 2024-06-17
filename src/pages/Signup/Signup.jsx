@@ -109,7 +109,7 @@ const Signup = () => {
                         <option value="2005">2005</option>
                     </select>
                 </div>
-                <button disabled className="text-[#0F1419] bg-white py-2.5 w-full rounded-3xl text-[17px] font-semibold">Next</button>
+                <Link to="/verification"><button className="text-[#0F1419] bg-white py-2.5 w-full rounded-3xl text-[17px] font-semibold">Next</button></Link>
             </div>
             </dialog>
         </div>
