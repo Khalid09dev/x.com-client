@@ -1,9 +1,9 @@
-import {GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth';
-import { app } from "../../../A12/product-hunt-client/src/firebase/firebase.config";
-import { createContext } from 'react';
+import { createContext } from "react";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut,} from 'firebase/auth';
+import {app} from '../firebase/firebase.config';
+export const AuthContext = createContext(null);
+const auth = getAuth(app)
 
-export const AuthContext = createContext(null)
-const auth = getAuth(app);
 const AuthProvider = ({children}) => {
 
     const createUser = (email, password) => {
@@ -20,20 +20,14 @@ const AuthProvider = ({children}) => {
 
     const googleSignIn = () => {
         const provider = new GoogleAuthProvider();
-        return signInWithPopup(auth, provider);
-    }
-
-    const githubSignIn = () => {
-        const provider = new GithubAuthProvider();
-        return signInWithPopup(auth, provider);
+        return signInWithPopup(auth, provider)
     }
 
     const authInfo = {
-        createUser, 
+        createUser,
         signIn,
-        logOut, 
-        googleSignIn, 
-        githubSignIn
+        logOut,
+        googleSignIn,
     }
     return (
         <AuthContext.Provider value={authInfo}>

@@ -1,10 +1,14 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import {Link, Outlet, useLocation} from 'react-router-dom';
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
+
 
 const Home = () => {
     const location = useLocation();
+    const {googleSignIn} = useContext(AuthContext);
+
     useEffect(() => {
         if(location.pathname === '/') {
             document.getElementById('home').classList.remove('bg-[#5B708366]');
@@ -13,6 +17,17 @@ const Home = () => {
             document.getElementById('home-footer').classList.add('bg-[#000000]');
         }
     }, [location])
+
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+        .then((result) => {
+            console.log(result);
+        })
+        .then((error) => {
+            console.log(error.message);
+        })
+    }
+
     return (
         <div className="grid h-screen">
             <div id="home" className="flex justify-center gap-44 pt-20">
@@ -22,7 +37,7 @@ const Home = () => {
             <div>
                 <h1 className="text-[#E7E9EA] text-[64px] pb-10 font-bold">Happening now</h1>
                 <h2 className="text-[31px] font-bold text-[#E7E9EA] pb-4">Join today.</h2>
-                <div className="bg-[#FFFFFF] flex items-center gap-1 mb-2 justify-center py-2 rounded-3xl w-1/2 cursor-pointer"><FcGoogle className="text-xl"/><span className="text-[#0F1419] text-[15px] font-medium">Sign up with Google</span></div>
+                <div onClick={handleGoogleSignIn} className="bg-[#FFFFFF] flex items-center gap-1 mb-2 justify-center py-2 rounded-3xl w-1/2 cursor-pointer"><FcGoogle className="text-xl"/><span className="text-[#0F1419] text-[15px] font-medium">Sign up with Google</span></div>
                 <div className="bg-[#FFFFFF] flex justify-center py-2 w-1/2 rounded-3xl cursor-pointer items-center gap-1"><FaApple className="text-xl"/><span className="text-[#0F1419] font-medium">Sign up with Apple</span></div>
                 <div className="flex flex-col w-1/2">
                     <div className="divider text-[15px] text-white">or</div>
